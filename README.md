@@ -1,6 +1,6 @@
 gpioLog
 ==========
-Deamon to write GPIO ports changes on an respberryPI to the volkszaehler.org middle-ware. This will work very similar to https://github.com/w3llschmidt/s0vz.
+Daemon to read GPIO port changes on an RespberryPI and to post the count to the volkszaehler.org middle-ware. This will work very similar to https://github.com/w3llschmidt/s0vz.
 
 Install
 --------
@@ -11,7 +11,6 @@ Install
  * `npm install`
  * create you config.js file by copying the config.template.js file. `cp config.template.js config.template.js`
  * edit the config.js file
- * `sudo chmod +x gpioLog`
  * Every time you make changes in the config.js, you should start gpioLog as root. `sudo /path/to/node gpioLog`
  * now you can start `./gpioLog` and try if everything works as expected.
 
