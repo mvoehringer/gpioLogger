@@ -9,6 +9,8 @@ config.channels.forEach(function(channel){
     var port = new Gpio(channel.gpioPort, 'in', 'both');
     var pulseCounter = 0;
     console.log('listening on GPIO port: ' + channel.gpioPort);
+    
+    // watch for changes on GPIO port
     port.watch(function(err, value) {
         if (err) {
           console.error(err);
@@ -19,8 +21,10 @@ config.channels.forEach(function(channel){
         }
     });
     
+    // send counter to the middleware
     setInterval(function(){
         if(pulseCounter){
+            // save counter to restore the count if something went wrong
             var pulseMemory = pulseCounter;
             pulseCounter = 0;
     
