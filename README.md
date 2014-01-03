@@ -1,10 +1,10 @@
-gpioLog
+gpioLogger
 ==========
-Daemon to read GPIO port changes on an RespberryPI and to post the count to the volkszaehler.org middle-ware. This will work very similar to https://github.com/w3llschmidt/s0vz and https://github.com/volkszaehler/vzlogger 
+Daemon to read GPIO ports of an RespberryPI and to post the count to the volkszaehler.org middle-ware. This will work very similar to https://github.com/w3llschmidt/s0vz and https://github.com/volkszaehler/vzlogger 
 
 Features
 --------
- * Non blocking IO - the deamon will not miss signals, while sending to the middle-ware 
+ * Non blocking IO (thanks to NodeJs) - the deamon will not miss signals, while sending to the middle-ware 
  * You can configure how often you want to send results to the middle-ware
  * You don't need special io-board to count S0 like sensors, because you can connect them directly to you GPIO port
 
@@ -12,16 +12,17 @@ Install
 --------
  * `sudo apt-get install nodejs npm`
  * `cd /opt/`
- * `sudo git clone https://github.com/mvoehringer/gpioLog.git`
- * `cd /opt/gpioLog`
+ * `sudo git clone https://github.com/mvoehringer/gpioLogger.git`
+ * `cd /opt/gpioLogger`
  * `npm install`
  * create you config.js file by copying the config.template.js file. `cp config.template.js config.template.js`
  * edit the config.js file
- * Every time you make changes in the config.js, you should start gpioLog as root. `sudo /path/to/node gpioLog`
- * now you can start `./gpioLog` and try if everything works as expected.
+ * Every time you make changes in the config.js, you should start gpioLogger as root. `sudo /path/to/node gpioLogger`
+ * now you can start `./gpioLogger` and try if everything works as expected.
 
  Coming Soon: 
   * How to autostart the daemon process 
+  * example setup how to read a sensor
 
 
 If you see errors like this, you have permissions problems.
