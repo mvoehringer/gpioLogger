@@ -1,0 +1,19 @@
+{
+    "name": "gpioLogger",
+    "description": "Logger deamon for pluses on the GPIO port to the voelkszaehler.org middleware",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "request": "",
+        "onoff": ""
+    },
+    "devDependencies": {
+    },
+    "scripts": {
+        "test": "NODE_ENV=test mocha"
+    },
+    "engines": {
+        "node": "0.8.4",
+        "npm": "1.1.49"
+    }
+}
