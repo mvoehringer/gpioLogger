@@ -1,6 +1,12 @@
 gpioLog
 ==========
-Daemon to read GPIO port changes on an RespberryPI and to post the count to the volkszaehler.org middle-ware. This will work very similar to https://github.com/w3llschmidt/s0vz.
+Daemon to read GPIO port changes on an RespberryPI and to post the count to the volkszaehler.org middle-ware. This will work very similar to https://github.com/w3llschmidt/s0vz and https://github.com/volkszaehler/vzlogger 
+
+Features
+--------
+ * Non blocking IO - the deamon will not miss signals, while sending to the middle-ware 
+ * You can configure how often you want to send results to the middle-ware
+ * You don't need special io-board to count S0 like sensors, because you can connect them directly to you GPIO port
 
 Install
 --------

@@ -10,7 +10,7 @@ config.channels.forEach(function(channel){
     var pulseCounter = 0;
     console.log('listening on GPIO port: ' + channel.gpioPort);
     
-    // watch for changes on GPIO port
+    // watch for changes on GPIO port, only chnages from 0 -> 1 will increase the counter
     port.watch(function(err, value) {
         if (err) {
           console.error(err);
@@ -27,7 +27,8 @@ config.channels.forEach(function(channel){
             // save counter to restore the count if something went wrong
             var pulseMemory = pulseCounter;
             pulseCounter = 0;
-    
+            
+            // send data 
             request.post(
                 channel.url,
                 { form: { value: pulseMemory } },
