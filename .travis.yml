@@ -4,4 +4,4 @@
    - "0.8"
  before_script:
    - "cp config.template.js config.js"
-
+ cache: bundler
