@@ -36,8 +36,7 @@ config.channels.forEach(function(channel){
                     if (!error && response.statusCode == 200) {
                         console.log("pulse saved: " + pulseMemory);
                     }else{
-                        console.error("cound not transmit data to middleware");
-                        console.error(error);
+                        console.error("Error while sending data. error:" +  error " Respone: ". response);
                         pulseCounter += pulseMemory;
                     }
                 }
