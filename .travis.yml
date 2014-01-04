@@ -2,3 +2,6 @@
  node_js:
    - "0.10"
    - "0.8"
+ before_script:
+   - "cp config.template.js config.js"
+
