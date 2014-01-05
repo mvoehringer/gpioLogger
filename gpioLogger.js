@@ -36,7 +36,7 @@ config.channels.forEach(function(channel){
                     if (!error && response.statusCode == 200) {
                         console.log("pulse saved: " + pulseMemory);
                     }else{
-                        console.error("Error while sending data. error:" +  error " Respone: ". response);
+                        console.error("Error while sending data. error:" +  error  + " Respone: " + response);
                         pulseCounter += pulseMemory;
                     }
                 }
