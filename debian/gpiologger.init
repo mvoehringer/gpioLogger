@@ -69,7 +69,7 @@ USER=gpiologger 			# USER who OWNS the daemon process (no matter whoever runs th
 APPLICATION_DIRECTORY="/opt/gpioLogger"
 APPLICATION_START=gpioLogger.js
 PIDFILE=/home/gpiologger/gpioLogger.pid
-LOGFILE=/var/log/gpioLogger/gpioLogger.log
+LOGFILE=/var/log/gpiologger/gpioLogger.log
  
 # Add node to the path for situations in which the environment is passed.
 PATH=$NODE_BIN_DIR:$PATH

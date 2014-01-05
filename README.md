@@ -8,19 +8,37 @@ Daemon to read GPIO ports of an RespberryPI and to post the count to the volksza
  * You don't need special io-board to count S0 like sensors, because you can connect them directly to you GPIO port
 
 ## Install ##
- * `sudo apt-get install nodejs npm`
- * install quick2wire-gpio-admin https://github.com/quick2wire/quick2wire-gpio-admin
+### Install actual version of nodejs ###
+  * `wget http://nodejs.org/dist/v0.10.22/node-v0.10.22-linux-arm-pi.tar.gz`
+  * `tar xvzf node-v0.10.22-linux-arm-pi.tar.gz`
+  * `sudo mkdir /opt/node`
+  * `sudo cp -r node-v0.10.22-linux-arm-pi/* /opt/node`
+  * `sudo nano /etc/profile` and replace ```export PATH``` with
+```
+NODE_JS_HOME="/opt/node"
+PATH="$PATH:$NODE_JS_HOME/bin"
+export PATH
+```
+
+### Install gpio-admin ###
+ install quick2wire-gpio-admin https://github.com/quick2wire/quick2wire-gpio-admin
+ * `git clone https://github.com/quick2wire/quick2wire-gpio-admin.git` 
+ * `cd quick2wire-gpio-admin`
+ * `make`
+ * `sudo make install`
+
+### Install gpioLogger ###
  * `cd /opt/`
  * `sudo git clone https://github.com/mvoehringer/gpioLogger.git`
  * `cd /opt/gpioLogger`
- * `npm install`
- * create you config.js file by copying the config.template.js file. `cp config.template.js config.template.js`
+ * `sudo npm config set registry http://registry.npmjs.org/
+ * `sudo npm install`
+ * create you config.js file by copying the config.template.js file. `cp config.template.js config.js`
  * edit the config.js file
- * Every time you make changes in the config.js, you should start gpioLogger as root. `sudo /path/to/node gpioLogger`
  * now you can start `./gpioLogger.js` and try if everything works as expected.
 
 ### Autostart gpioLogger ###
- * `sudo useradd -m -G gpio gpiologger
+ * `sudo useradd -m -G gpio gpiologger`
  * copy init script to startup gpioLogger after reboot `sudo cp -a debian/gpiologger.init /etc/init.d/gpiologger`
  * create folder for logfiles `sudo mkdir /var/log/gpiologger`
  * `sudo chown gpiologger: /var/log/gpiologger`
@@ -30,8 +48,8 @@ Daemon to read GPIO ports of an RespberryPI and to post the count to the volksza
 ## Coming Soon ##
  * example setup how to read a sensor
 
-
-If you see errors like this, you have permissions problems.
+### Troubleshooting  ###
+If you see errors like this, you have permissions problems!
 ```
 fs.js:427
   return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);

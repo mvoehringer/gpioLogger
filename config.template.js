@@ -6,7 +6,7 @@ var config = {
             // URL to log to http://HOST:PORT/middleware.php/data/CHANNELID.json
             url:  "http://localhost/middleware.php/data/fbfe8d2f-ef6b-4ea1-94d0-b9ebaec4545a.json",
             // interval in seconds to wirte the values to the middleware 
-            interval: 5
+            interval: 15
         },
         // {
         //     gpioPort: 8,
