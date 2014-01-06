@@ -3,11 +3,18 @@ gpioLogger
 Daemon to read GPIO ports of an RespberryPI and to post the count to the volkszaehler.org middle-ware. This will work very similar to https://github.com/w3llschmidt/s0vz and https://github.com/volkszaehler/vzlogger 
 
 ## Features ##
- * Non blocking IO (thanks to NodeJs) - the deamon will not miss signals, while sending to the middle-ware 
+ * Non blocking IO (thanks to NodeJs) - the daemon will not miss signals, while sending to the middle-ware 
  * You can configure how often you want to send results to the middle-ware
  * You don't need special io-board to count S0 like sensors, because you can connect them directly to you GPIO port
  * You can configure an software debounce timeout per channel
  * Configure the edge to watch for (rising, falling or both)
+
+## Example set-up ##
+This is an very basic example with an push button as sensor. In the real world you would replace the button with a sensor of your choice. 
+
+![bush button example](https://raw.github.com/mvoehringer/gpioLogger/master/example/pushbutton.png)
+
+
 
 ## Install ##
 ### Install actual version of nodejs ###
@@ -48,8 +55,6 @@ export PATH
  * `sudo /opt/node/bin/npm install forever -g`
  * `sudo update-rc.d gpiologger defaults`
 
-## Coming Soon ##
- * example setup how to read a sensor
 
 ### Troubleshooting  ###
 If you see errors like this, you have permissions problems!
