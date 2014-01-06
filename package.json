@@ -1,7 +1,7 @@
 {
     "name": "gpioLogger",
     "description": "Logger deamon for pluses on the GPIO port to the voelkszaehler.org middleware",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "author": "Michael Vöhringer <github@voehringer.net>",
     "homepage": "http://github.com/mvoehringer/gpioLogger",
@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "request": "",
-        "onoff": ""
+        "onoff": "0.3"
     },
     "devDependencies": {
     },

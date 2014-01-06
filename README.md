@@ -6,6 +6,8 @@ Daemon to read GPIO ports of an RespberryPI and to post the count to the volksza
  * Non blocking IO (thanks to NodeJs) - the deamon will not miss signals, while sending to the middle-ware 
  * You can configure how often you want to send results to the middle-ware
  * You don't need special io-board to count S0 like sensors, because you can connect them directly to you GPIO port
+ * You can configure an software debounce timeout per channel
+ * Configure the edge to watch for (rising, falling or both)
 
 ## Install ##
 ### Install actual version of nodejs ###
@@ -14,6 +16,7 @@ Daemon to read GPIO ports of an RespberryPI and to post the count to the volksza
   * `sudo mkdir /opt/node`
   * `sudo cp -r node-v0.10.22-linux-arm-pi/* /opt/node`
   * `sudo nano /etc/profile` and replace ```export PATH``` with
+
 ```
 NODE_JS_HOME="/opt/node"
 PATH="$PATH:$NODE_JS_HOME/bin"

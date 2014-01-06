@@ -6,8 +6,15 @@ var request = require('request'),
     Gpio = require('onoff').Gpio;
 
 config.channels.forEach(function(channel){
-    var port = new Gpio(channel.gpioPort, 'in', 'both');
+    var debounceTimeout = channel.debounceTimeout || 0,
+        edge   = channel.edge || 'rising';
+
+    // Open Gpio port 
+    var port = new Gpio(channel.gpioPort, 'in', edge, {debounceTimeout});
+
+    // buffer for pulse
     var pulseCounter = 0;
+
     console.log('listening on GPIO port: ' + channel.gpioPort);
     
     // watch for changes on GPIO port, only chnages from 0 -> 1 will increase the counter
@@ -15,10 +22,9 @@ config.channels.forEach(function(channel){
         if (err) {
           console.error(err);
         }
-        if(value){
-          pulseCounter ++;
-          console.log("pulse found on: " +  channel.gpioPort + " count: " + pulseCounter);
-        }
+        
+        pulseCounter ++;
+        console.log("pulse found on: " +  channel.gpioPort + " count: " + pulseCounter);
     });
     
     // send counter to the middleware
@@ -36,7 +42,7 @@ config.channels.forEach(function(channel){
                     if (!error && response.statusCode == 200) {
                         console.log("pulse saved: " + pulseMemory);
                     }else{
-                        console.error("Error while sending data. error:" +  error  + " Respone: " + response);
+                        console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
                         pulseCounter += pulseMemory;
                     }
                 }
