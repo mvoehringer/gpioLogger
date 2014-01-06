@@ -10,7 +10,7 @@ config.channels.forEach(function(channel){
         edge   = channel.edge || 'rising';
 
     // Open Gpio port 
-    var port = new Gpio(channel.gpioPort, 'in', edge, {debounceTimeout});
+    var port = new Gpio(channel.gpioPort, 'in', edge, {debounceTimeout: debounceTimeout});
 
     // buffer for pulse
     var pulseCounter = 0;
