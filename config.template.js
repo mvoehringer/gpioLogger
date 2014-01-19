@@ -11,7 +11,7 @@ var config = {
             interval: 15,
             
             //   The pulse generating edge for the GPIO : 'rising', 'falling' or 'both'.
-            edge: rising,
+            edge: 'rising',
 
             // software debounce a button or switch using a timeout. Specified in milliseconds
             debounceTimeout: 0 
@@ -23,7 +23,7 @@ var config = {
         //     // interval in seconds to wirte the values to the middleware 
         //     interval: 5
         //     // The pulse generating edge for the GPIO : 'rising', 'falling' or 'both'.
-        //     edge: rising,
+        //     edge: 'rising',
         //     // software debounce a button or switch using a timeout. Specified in milliseconds
         //     debounceTimeout: 0 
         // }
