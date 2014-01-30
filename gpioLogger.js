@@ -101,7 +101,7 @@ function readOneWire(channel){
 
 config.channels.forEach(function(channel){
     if(channel.impulse){
-        readImpulse(channel);
+        readImpuls(channel);
     }else if(channel.oneWire){
         readOneWire(channel);
     }else{
