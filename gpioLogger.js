@@ -6,15 +6,11 @@ var request = require('request'),
     config = require('./config'),
     Gpio = require('onoff').Gpio;
 
-config.channels.forEach(function(channel){
-    if(channel.impulse){
-        readImpulse(channel);
-    }else if(channel.oneWire){
-        readOneWire(channel);
-    }else{
-        console.error('Configuration error, no channel type found.');
-    }
-});
+Array.prototype.hasValue = function(value) {
+  var i;
+  for (i=0; i<this.length; i++) { if (this[i] === value) return true; }
+  return false;
+}
 
 function readImpuls(channel){
     var debounceTimeout = channel.impulse.debounceTimeout || 0,
@@ -103,11 +99,15 @@ function readOneWire(channel){
 
 }
 
-Array.prototype.hasValue = function(value) {
-  var i;
-  for (i=0; i<this.length; i++) { if (this[i] === value) return true; }
-  return false;
-}
+config.channels.forEach(function(channel){
+    if(channel.impulse){
+        readImpulse(channel);
+    }else if(channel.oneWire){
+        readOneWire(channel);
+    }else{
+        console.error('Configuration error, no channel type found.');
+    }
+});
 
 console.log("ready..");
 
