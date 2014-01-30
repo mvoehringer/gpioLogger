@@ -49,7 +49,11 @@ function readImpuls(channel){
                     if (!error && response.statusCode == 200) {
                         console.log("pulse saved: " + pulseMemory);
                     }else{
-                        console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
+                        if(response){
+                            console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
+                        }else{
+                            console.error("Error while sending data. Could not connect to the server. error:" +  error);
+                        }
                         pulseCounter += pulseMemory;
                     }
                 }
@@ -63,23 +67,22 @@ function readOneWire(channel){
     setInterval(function(){
 
         
-        fs.readFile('/sys/bus/w1/devices/' +  channel.oneWire.device + 'w1_slave' , function (err, data) {
-            var sensorValue = null;
+        fs.readFile('/sys/bus/w1/devices/' +  channel.oneWire.device + '/w1_slave' , function (err, data) {
 
             if (err){
                 console.error(err);
                 throw err;
             }
             
+            var dataValue = data.toString();
+
             // Parse data, read tempature
-            sensorValue = function (data){
-                console.log(data.indexOf("t="));
-                console.log(data);
-            }
+            var sensorValue = dataValue.slice( dataValue.indexOf("t=") +2) / 1000;
 
             // sensorValue found and not in ignore list
-            if(sensorValue !== null && !channel.oneWire.ignore.hasValue(sensorValue)){
+            if(sensorValue && !channel.oneWire.ignore.hasValue(sensorValue)){
                 // send data 
+                console.log("channel " + channel.oneWire.device + " : " + sensorValue +"C");
                 request.post(
                     channel.url,
                     { form: { value: sensorValue } },
@@ -87,7 +90,11 @@ function readOneWire(channel){
                         if (!error && response.statusCode == 200) {
                             console.log("sensor data saved: " + sensorValue);
                         }else{
-                            console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
+                            if(response){
+                                console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
+                            }else{
+                                console.error("Error while sending data. Could not connect to the server. error:" +  error);
+                            }
                         }
                     }
                 );                
