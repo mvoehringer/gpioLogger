@@ -65,7 +65,6 @@ function readImpuls(channel){
 function readOneWire(channel){
 
     setInterval(function(){
-
         
         fs.readFile('/sys/bus/w1/devices/' +  channel.oneWire.device + '/w1_slave' , function (err, data) {
 
