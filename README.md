@@ -78,8 +78,8 @@ module.exports = config;
  ```
 
 #### Configure 1 wire sensor DS1820 input ####
-* At the moment, only DS1820 sensors are supported, maybe other sensors will also work, but i only have the DS1820 for testing
-* all sensors have to me connected to GPIO4, this is a limitation of the w1-gpio kernel module and will hopefully be changed in the future
+* At the moment, only DS1820 sensors are supported, maybe other sensors will work as well, but i only have a DS1820 for testing
+* All sensors have to be connected to GPIO4, this is a limitation of the w1-gpio kernel module and will hopefully be removed in the future
 * try to load the kernel modules 
 ```sh
 sudo modprobe w1-gpio pullup=1
@@ -147,4 +147,4 @@ fs.js:427
                  ^
 Error: EACCES, permission denied '/sys/class/gpio/gpio5/direction'
 ```
-To solve this, pleas see https://github.com/fivdi/onoff for more infos.
+To solve this, please see https://github.com/fivdi/onoff for more infos.
