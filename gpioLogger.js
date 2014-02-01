@@ -76,7 +76,7 @@ function readOneWire(channel){
             var dataValue = data.toString();
 
             // Parse data, read tempature
-            var sensorValue = dataValue.slice( dataValue.indexOf("t=") +2) / 1000;
+            var sensorValue = parseFloat(dataValue.slice( dataValue.indexOf("t=") +2) / 1000);
 
             // sensorValue found and not in ignore list
             if(sensorValue && !channel.oneWire.ignore.hasValue(sensorValue)){
@@ -98,11 +98,8 @@ function readOneWire(channel){
                     }
                 );                
             }
-            
         });
-        
     },  parseInt(channel.interval) * 1000);    // write every x seconds to middleware
-
 }
 
 config.channels.forEach(function(channel){
