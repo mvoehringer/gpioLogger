@@ -10,8 +10,35 @@ Array.prototype.hasValue = function(value) {
   var i;
   for (i=0; i<this.length; i++) { if (this[i] === value) return true; }
   return false;
-}
+};
 
+/*
+ * send value to the middleware
+ *
+ */
+function sendValue(sensorValue, url, callback) {    
+    request.post(
+        url,
+        { form: { value: sensorValue } },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log("Data: " + sensorValue + " send to :" + url);
+                typeof callback === 'function' && callback(null,body);
+            }else{
+                if(response){
+                    console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
+                }else{
+                    console.error("Error while sending data. Could not connect to the server. error:" +  error + " url: " + url);
+                }
+                typeof callback === 'function' && callback(error,null);
+            }
+        }
+    );
+} 
+
+/*
+ * read GPIO port 
+ */
 function readImpuls(channel){
     var debounceTimeout = channel.impulse.debounceTimeout || 0,
         edge   = channel.impulse.edge || 'rising';
@@ -40,28 +67,19 @@ function readImpuls(channel){
             // save counter to restore the count if something went wrong
             var pulseMemory = pulseCounter;
             pulseCounter = 0;
-            
-            // send data 
-            request.post(
-                channel.url,
-                { form: { value: pulseMemory } },
-                function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        console.log("pulse saved: " + pulseMemory);
-                    }else{
-                        if(response){
-                            console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
-                        }else{
-                            console.error("Error while sending data. Could not connect to the server. error:" +  error);
-                        }
-                        pulseCounter += pulseMemory;
-                    }
+
+            sendValue(sensorValue, channel.url, function(err, data) {
+                if(err){
+                    pulseCounter += pulseMemory;
                 }
-            );
+            });
         }
-    },  parseInt(channel.interval) * 1000);    // write every x seconds to middleware
+    },  parseInt(channel.interval, 10) * 1000);    // write every x seconds to middleware
 }
 
+/*
+ * read 1Wire sensor 
+ */
 function readOneWire(channel){
 
     setInterval(function(){
@@ -72,7 +90,6 @@ function readOneWire(channel){
                 console.error(err);
                 throw err;
             }
-            
             var dataValue = data.toString();
 
             // Parse data, read tempature
@@ -82,28 +99,15 @@ function readOneWire(channel){
             if(sensorValue && !channel.oneWire.ignore.hasValue(sensorValue)){
                 // send data 
                 console.log("channel " + channel.oneWire.device + " : " + sensorValue +"C");
-                request.post(
-                    channel.url,
-                    { form: { value: sensorValue } },
-                    function (error, response, body) {
-                        if (!error && response.statusCode == 200) {
-                            console.log("sensor data saved: " + sensorValue);
-                        }else{
-                            if(response){
-                                console.error("Error while sending data. error:" +  error  + " Respone: " + response.statusCode);
-                            }else{
-                                console.error("Error while sending data. Could not connect to the server. error:" +  error);
-                            }
-                        }
-                    }
-                );                
+
+                sendValue(sensorValue, channel.url);              
             }
         });
-    },  parseInt(channel.interval) * 1000);    // write every x seconds to middleware
+    },  parseInt(channel.interval, 10) * 1000);    // write every x seconds to middleware
 }
 
 config.channels.forEach(function(channel){
-    if(channel.impulse){
+    if(channel.impulse){ 
         readImpuls(channel);
     }else if(channel.oneWire){
         readOneWire(channel);
@@ -113,4 +117,3 @@ config.channels.forEach(function(channel){
 });
 
 console.log("ready..");
-

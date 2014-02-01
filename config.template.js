@@ -15,7 +15,7 @@ var config = {
                 debounceTimeout: 0, 
 
                 // GPIO port nummber, not the pin nummner
-                gpioPort: 17, 
+                gpioPort: 17
             }
         },
         {
@@ -36,12 +36,12 @@ var config = {
 
                 // ignore values
                 // sometimes sensores will return unwanted values for example while initial
-                ignore: [ 85.00, ],
+                ignore: [ 85.00 ],
 
                 // at the moment only 'DS18S20' tempature sensors are supported
                 type: 'DS18S20'
             }
-        },        
+        }    
         // {
         //     gpioPort: 8,
         //     // URL to log to http://HOST:PORT/middleware.php/data/CHANNELID.json
@@ -54,5 +54,6 @@ var config = {
         //     debounceTimeout: 0 
         // }
     ]
-}
+};
+
 module.exports = config;
