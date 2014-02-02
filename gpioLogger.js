@@ -17,9 +17,10 @@ Array.prototype.hasValue = function(value) {
  *
  */
 function sendValue(sensorValue, url, callback) {    
+    
     request.post(
         url,
-        { form: { value: sensorValue } },
+        { form: { value: parseFloat(sensorValue) } },
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log("Data: " + sensorValue + " send to :" + url);
